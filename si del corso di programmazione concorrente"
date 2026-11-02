@@ -1,0 +1,510 @@
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mnew file mode 100644[m
+[1mindex 0000000..89c60a5[m
+[1m--- /dev/null[m
+[1m+++ b/.gitignore[m
+[36m@@ -0,0 +1,12 @@[m
+[32m+[m[32m/tmp/[m
+[32m+[m[32m__pycache__/[m
+[32m+[m[32m*.pyc[m
+[32m+[m[32m*.o[m
+[32m+[m[32ma.out[m
+[32m+[m[32m*.log[m
+[32m+[m[32m*.tmp[m
+[32m+[m[32m*.swp[m
+[32m+[m[32m*~[m
+[32m+[m[32m.env[m
+[32m+[m[32m.env.*[m
+[32m+[m[32m!.env.example[m
+[1mdiff --git a/README.md b/README.md[m
+[1mnew file mode 100644[m
+[1mindex 0000000..756f248[m
+[1m--- /dev/null[m
+[1m+++ b/README.md[m
+[36m@@ -0,0 +1,10 @@[m
+[32m+[m[32m# Programmazione concorrente[m
+[32m+[m
+[32m+[m[32mEsercitazioni di programmazione concorrente di Alessio Marzeddu, 4CINF[m
+[32m+[m
+[32m+[m[32mQuesto repository contiene i programmi, gli esercizi e le risorse sui processi Linux.[m
+[32m+[m[32mIl programma dell'esercizio Git e GitHub es01b-hello-world/hello.py.[m
+[32m+[m
+[32m+[m[32mSu Web4Student lavoro nella cartella personale ~/processi.[m
+[32m+[m[32mPer eseguire Hello World uso: python3 es01b-hello-world/hello.py[m
+[32m+[m[32mLa sottocartella tmp contiene file temporanei e viene esclusa da Git.[m
+[1mdiff --git a/es01b-hello-world/hello.py b/es01b-hello-world/hello.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c7f1708[m
+[1m--- /dev/null[m
+[1m+++ b/es01b-hello-world/hello.py[m
+[36m@@ -0,0 +1,12 @@[m
+[32m+[m[32m#!/usr/bin/env python3[m
+[32m+[m[32m"""Hello World: dal programma Python al processo in esecuzione."""[m
+[32m+[m[32mimport os[m
+[32m+[m
+[32m+[m[32mnome = 'Alessio'[m
+[32m+[m[32mmessaggio = "Hello World dell'esercizio b."[m
+[32m+[m
+[32m+[m[32mprint('Hello, World!')[m
+[32m+[m[32mprint(f'Studente: {nome}')[m
+[32m+[m[32mprint(messaggio)[m
+[32m+[m[32m# Il sistema operativo assegna un PID al processo che esegue il programma.[m
+[32m+[m[32mprint(f'PID del processo: {os.getpid()}')[m
+[1mdiff --git a/fork01.c b/fork01.c[m
+[1mnew file mode 100644[m
+[1mindex 0000000..600dc76[m
+[1m--- /dev/null[m
+[1m+++ b/fork01.c[m
+[36m@@ -0,0 +1,20 @@[m
+[32m+[m
+[32m+[m[32m/**[m
+[32m+[m[32m * fork01.c - © FB - 7/12/20[m
+[32m+[m[32m * pid = identificativo del processo in esecuzione[m[41m [m
+[32m+[m[32m *[m[41m [m
+[32m+[m[32m * fb@rpi2:~/sis2/01-fork $ gcc fork01.c[m
+[32m+[m[32m * fb@rpi2:~/sis2/01-fork $ ./a.out[m
+[32m+[m[32m */[m
+[32m+[m[32m#include <stdio.h>   // printf[m
+[32m+[m[32m#include <unistd.h>  // getpid[m
+[32m+[m
+[32m+[m[32mint main(int argc, char **argv) {[m
+[32m+[m
+[32m+[m[32m  printf("\nAvvio del processo con pid=%d\n", getpid());[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m//Possibile output:[m
+[32m+[m[32m//Avvio del processo con pid=12345[m
+[32m+[m
+[32m+[m
+[1mdiff --git a/fork02.c b/fork02.c[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6015a69[m
+[1m--- /dev/null[m
+[1m+++ b/fork02.c[m
+[36m@@ -0,0 +1,29 @@[m
+[32m+[m
+[32m+[m[32m/**[m
+[32m+[m[32m * fork02.c - © FB - 7/12/20[m[41m [m
+[32m+[m[32m * e' possibile vedere il pid dei processi in esecuzione tramite il comando ps -u[m
+[32m+[m[32m * $./a.out & #avvia il programma in background[m[41m [m
+[32m+[m[32m * digitare fg e poi CTRL-C per terminare il processo in background[m
+[32m+[m[32m */[m
+[32m+[m[32m#include <stdio.h>   // printf[m
+[32m+[m[32m#include <unistd.h>  // getpid[m
+[32m+[m
+[32m+[m[32mint main(int argc, char **argv) {[m
+[32m+[m
+[32m+[m[32m  printf("\nAvvio del processo con pid=%d\n", getpid());[m
+[32m+[m[32m  for(;;) {;}[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* Possibile output:[m
+[32m+[m
+[32m+[m[32mfb@rpi2:~/sis2/01-fork $ gcc fork02.c[m
+[32m+[m[32mfb@rpi2:~/sis2/01-fork $ ./a.out &[m
+[32m+[m[32m[1] 4623[m
+[32m+[m[32mfb@rpi2:~/sis2/01-fork $ Avvio del processo con pid=4623[m
+[32m+[m[32mfb@rpi2:~/sis2/01-fork $ ps -u[m
+[32m+[m[32mUSER   PID  %CPU %MEM   VSZ  RSS TTY      STAT START   TIME COMMAND[m
+[32m+[m[32mfb    4448  0.0  0.4  6244 4304 pts/3    Ss   18:00   0:00 -bash[m
+[32m+[m[32mfb    4623 96.4  0.0  1676  316 pts/3    R    18:06   0:09 ./a.out[m
+[32m+[m[32mfb    4630  0.0  0.2  4740 2172 pts/3    R+   18:06   0:00 ps -u[m
+[32m+[m
+[32m+[m[32m*/[m
+[1mdiff --git a/fork03.c b/fork03.c[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a0a2202[m
+[1m--- /dev/null[m
+[1m+++ b/fork03.c[m
+[36m@@ -0,0 +1,47 @@[m
+[32m+[m
+[32m+[m[32m/* fork03b.c - © FB - 7/12/20[m[41m  [m
+[32m+[m[32m * Creazione di un processo figlio[m[41m [m
+[32m+[m[32m * i processi padre e figlio procedono in modo concorrente[m
+[32m+[m[32m */[m
+[32m+[m[32m#include <stdio.h>   // printf[m
+[32m+[m[32m#include <unistd.h>  // getpid, fork[m
+[32m+[m
+[32m+[m[32mint main() {[m
+[32m+[m[41m  [m
+[32m+[m[32m  printf("Codice padre! (pid: %d)\n", getpid());[m
+[32m+[m[32m  int pid = fork();[m
+[32m+[m[32m  if (pid==0) {[m
+[32m+[m[32m    /* codice figlio */[m
+[32m+[m	[32mfor(int i=0; i<30; i++) {[m
+[32m+[m		[32mprintf("%d - Sono il figlio! (pid: %d)\n", i, getpid());[m
+[32m+[m		[32msleep(1);[m
+[32m+[m	[32m}[m
+[32m+[m[32m  } else if (pid>0) {[m
+[32m+[m[32m    /* codice padre */[m
+[32m+[m	[32mfor(int i=0; i<30; i++) {[m
+[32m+[m		[32mprintf("%d - Sono il padre! (pid: %d)\n", i, getpid());[m
+[32m+[m		[32msleep(1);[m
+[32m+[m	[32m}[m
+[32m+[m[32m  } else { // pid<0[m
+[32m+[m[32m    printf("Creazione del processo figlio fallita!\n");[m
+[32m+[m[32m  }[m
+[32m+[m[32m  printf("Codice comune a padre e figlio! (pid: %d)\n", getpid());[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* Possibile output:[m
+[32m+[m
+[32m+[m[32mfb@rpi2:~/sis2/01-fork $ gcc fork03b.c[m
+[32m+[m[32mfb@rpi2:~/sis2/01-fork $ ./a.out[m
+[32m+[m[32mCodice padre! (pid: 4801)[m
+[32m+[m[32m0 - Sono il padre! (pid: 4801)[m
+[32m+[m[32m0 - Sono il figlio! (pid: 4802)[m
+[32m+[m[32m1 - Sono il padre! (pid: 4801)[m
+[32m+[m[32m1 - Sono il figlio! (pid: 4802)[m
+[32m+[m[32m2 - Sono il padre! (pid: 4801)[m
+[32m+[m[32m2 - Sono il figlio! (pid: 4802)[m
+[32m+[m[32m...[m
+[32m+[m[32m29 - Sono il padre! (pid: 4801)[m
+[32m+[m[32m29 - Sono il figlio! (pid: 4802)[m
+[32m+[m
+[32m+[m[32m*/[m
+[32m+[m
+[1mdiff --git a/fork04.c b/fork04.c[m
+[1mnew file mode 100644[m
+[1mindex 0000000..dd970a7[m
+[1m--- /dev/null[m
+[1m+++ b/fork04.c[m
+[36m@@ -0,0 +1,97 @@[m
+[32m+[m[32m//==========================================================================================[m
+[32m+[m[32m// Project: fork04.c[m
+[32m+[m[32m// Date: 07/12/2020[m
+[32m+[m[32m// Author: Filippo Bilardo[m
+[32m+[m[32m//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m
+[32m+[m[32m//  Creazione di un processo figlio.[m[41m [m
+[32m+[m[32m//  Organizzazione migliore del codice rispetto al esempio precedente[m
+[32m+[m[32m//  - ogni variabile del figlio è inizializzata con il valore assegnatole dal padre[m[41m [m
+[32m+[m[32m//    prima della fork()[m
+[32m+[m[32m//  - il figlio nasce con lo stesso program counter del padre: la prima istruzione eseguita[m[41m [m
+[32m+[m[32m//    dal figlio è quella che segue immediatamente fork()[m
+[32m+[m[32m//    + il codice prima della fork viene eseguito solo dal processo padre[m
+[32m+[m[32m//    + il codice dopo della fork viene eseguito sia dal processo padre e dal processo figlio[m
+[32m+[m[32m//  - un processo ha sempre un padre. Se il padre termina prima del figlio, il padre diventa[m
+[32m+[m[32m//    il padre del padre e cosi via fino ad arrivare al processo "Init" pid=1[m
+[32m+[m[32m//[m
+[32m+[m[32m// Ver  Date      Comment[m
+[32m+[m[32m//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m
+[32m+[m[32m// 1.0  07/12/20  Versione iniziale[m
+[32m+[m[32m//[m
+[32m+[m[32m//==========================================================================================[m
+[32m+[m[32m//------------------------------------------------------------------------------------------[m
+[32m+[m[32m//=== Includes =============================================================================[m
+[32m+[m[32m//------------------------------------------------------------------------------------------[m
+[32m+[m[32m#include <stdio.h>   // printf[m
+[32m+[m[32m#include <unistd.h>  // getpid[m
+[32m+[m
+[32m+[m[32m//------------------------------------------------------------------------------------------[m
+[32m+[m[32m//=== Function prototypes ==================================================================[m
+[32m+[m[32m//------------------------------------------------------------------------------------------[m
+[32m+[m[32mvoid childProcess(void);[m
+[32m+[m[32mvoid fatherProcess(int childpid);[m
+[32m+[m
+[32m+[m[32m//------------------------------------------------------------------------------------------[m
+[32m+[m[32m//=== Local variables ======================================================================[m
+[32m+[m[32m//------------------------------------------------------------------------------------------[m
+[32m+[m[32mint op1=10, op2=20, ris;[m
+[32m+[m
+[32m+[m[32m//------------------------------------------------------------------------------------------[m
+[32m+[m[32m//=== Main =================================================================================[m
+[32m+[m[32m//------------------------------------------------------------------------------------------[m
+[32m+[m[32mint main() {[m
+[32m+[m
+[32m+[m[32m  printf("\n[INIZIO] - Esiste solo il processo padre, il padre del padre e' la shell \n");[m
+[32m+[m[32m  printf("[INIZIO] - Prima della fork - pid processo=%d, pid padre=%d\n",getpid(),getppid());[m
+[32m+[m
+[32m+[m[32m  // Creazione del processo figlio[m
+[32m+[m[32m  int pid=fork();[m
+[32m+[m[32m  if (pid==0) {[m
+[32m+[m[32m    // Esecuzione codice del processo figlio[m
+[32m+[m[32m    childProcess();[m
+[32m+[m[32m  } else if (pid>0) {[m
+[32m+[m[32m    // Esecuzione codice del processo padre[m
+[32m+[m[32m    fatherProcess(pid);[m
+[32m+[m[32m  } else { // pid<0[m
+[32m+[m[32m    // Errore[m
+[32m+[m[32m    printf("Creazione del processo figlio fallita!\n");[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  // Codice comune a processo padre e figlio[m
+[32m+[m[32m  printf("[FINE] - Termine del processo con pid=%d, ris=%d, padre=%d\n", getpid(), ris, getppid());[m
+[32m+[m[32m}[m
+[32m+[m[32m//------------------------------------------------------------------------------------------[m
+[32m+[m[32m//=== Local Functions ======================================================================[m
+[32m+[m[32m//------------------------------------------------------------------------------------------[m
+[32m+[m[32mvoid childProcess(void)[m
+[32m+[m[32m{[m
+[32m+[m[32m  // op1 e op2 inizializzate con il valore assegnato dal padre prima della fork()[m
+[32m+[m[32m  // ris ha valore diverso rispetto al processo padre[m
+[32m+[m[32m  ris=op1+op2;[m[41m [m
+[32m+[m[32m  printf("\n[Figlio] - Il risultato della somma di op1+op2=%d\n", ris);[m
+[32m+[m[32m  printf("[Figlio] - pid=%d, pid padre=%d\n", getpid(), getppid());[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mvoid fatherProcess(int childpid)[m
+[32m+[m[32m{[m
+[32m+[m[32m  ris=op1*op2;[m
+[32m+[m[32m  printf("\n[Padre] - pid=%d, pid padre=%d, pid figlio=%d\n", getpid(), getppid(), childpid);[m
+[32m+[m[32m  printf("[Padre] - Il risultato della moltiplicazione di op1*op2=%d\n", ris);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* Possibile output:[m
+[32m+[m
+[32m+[m[32mfb@rpi2:~/sis2/01-fork $ gcc fork04.c[m
+[32m+[m[32mfb@rpi2:~/sis2/01-fork $ ./a.out[m
+[32m+[m
+[32m+[m[32m[INIZIO] - Esiste solo il processo padre, il padre del padre è la shell[m
+[32m+[m[32m[INIZIO] - Prima della fork - pid processo=5248, pid padre=4448[m
+[32m+[m[32m[Padre] - pid=5248, pid padre=4448, pid figlio=5249[m
+[32m+[m[32m[Padre] - Il risultato della moltiplicazione di op1*op2=200[m
+[32m+[m[32m[FINE] - Termine del processo con pid=5248, ris=200, padre=4448[m
+[32m+[m[32m[Figlio] - Il risultato della somma di op1+op2=30[m
+[32m+[m[32m[Figlio] - pid=5249, pid del processo padre=5248[m
+[32m+[m[32m[FINE] - Termine del processo con pid=5249, ris=30, padre=5248[m
+[32m+[m
+[32m+[m[32mfb@rpi2:~/sis2/01-fork $[m
+[32m+[m[32m*/[m
+[1mdiff --git a/lampeggio_led.py b/lampeggio_led.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ec38bf9[m
+[1m--- /dev/null[m
+[1m+++ b/lampeggio_led.py[m
+[36m@@ -0,0 +1,51 @@[m
+[32m+[m
+[32m+[m[32mimport multiprocessing[m
+[32m+[m[32mimport time[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef lampeggia(led):[m
+[32m+[m[32m    colori = {[m
+[32m+[m[32m        1: ("verde", 0.3),[m
+[32m+[m[32m        2: ("rosso", 0.7),[m
+[32m+[m[32m        3: ("giallo", 1.2)[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    colore, intervallo = colori[led][m
+[32m+[m
+[32m+[m[32m    for i in range(10):[m
+[32m+[m[32m        print(f"LED {colore} acceso", flush=True)[m
+[32m+[m[32m        time.sleep(intervallo)[m
+[32m+[m
+[32m+[m[32m        print(f"LED {colore} spento", flush=True)[m
+[32m+[m[32m        time.sleep(intervallo)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef main():[m
+[32m+[m[32m    while True:[m
+[32m+[m[32m        comando = input([m
+[32m+[m[32m            "comando (v=verde, r=rosso, g=giallo, q=esci): "[m
+[32m+[m[32m        ).lower().strip()[m
+[32m+[m
+[32m+[m[32m        if comando == "q":[m
+[32m+[m[32m            print("chiusura del programma.")[m
+[32m+[m[32m            break[m
+[32m+[m[32m        elif comando == "v":[m
+[32m+[m[32m            led = 1[m
+[32m+[m[32m        elif comando == "r":[m
+[32m+[m[32m            led = 2[m
+[32m+[m[32m        elif comando == "g":[m
+[32m+[m[32m            led = 3[m
+[32m+[m[32m        else:[m
+[32m+[m[32m            print("comando non valido!")[m
+[32m+[m[32m            continue[m
+[32m+[m
+[32m+[m[32m        processo = multiprocessing.Process([m
+[32m+[m[32m            target=lampeggia,[m
+[32m+[m[32m            args=(led,)[m
+[32m+[m[32m        )[m
+[32m+[m[32m        processo.start()[m
+[32m+[m[32m        processo.join()[m
+[32m+[m
+[32m+[m
+[32m+[m[32mif __name__ == "__main__":[m
+[32m+[m[32m    main()[m
+[1mdiff --git a/pyfork01.py b/pyfork01.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..1510cfa[m
+[1m--- /dev/null[m
+[1m+++ b/pyfork01.py[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32mimport os[m
+[32m+[m
+[32m+[m[32mdef main():[m
+[32m+[m[32m    print(f"\nAvvio del processo con pid={os.getpid()}")[m
+[32m+[m
+[32m+[m[32mif __name__ == "__main__":[m
+[32m+[m[32m    main()[m
+[32m+[m
+[1mdiff --git a/pyfork02.py b/pyfork02.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..37b2f3d[m
+[1m--- /dev/null[m
+[1m+++ b/pyfork02.py[m
+[36m@@ -0,0 +1,9 @@[m
+[32m+[m[32mimport os[m
+[32m+[m
+[32m+[m
+[32m+[m[32mprint(f"\nAvvio del processo con pid={os.getpid()}")[m
+[32m+[m[32mwhile True:[m
+[32m+[m[32m    pass  # Loop infinito[m
+[32m+[m
+[32m+[m[32mprint(f"\nQuesto codice non verrà mai eseguito, perché il processo è in loop infinito")[m
+[32m+[m[41m [m
+[1mdiff --git a/pyfork03.py b/pyfork03.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..607152f[m
+[1m--- /dev/null[m
+[1m+++ b/pyfork03.py[m
+[36m@@ -0,0 +1,20 @@[m
+[32m+[m[32mimport os[m
+[32m+[m
+[32m+[m[32mdef main():[m
+[32m+[m[32m    print(f"Codice eseguito dal padre! (pid: {os.getpid()})")[m
+[32m+[m[32m    pid = os.fork()[m
+[32m+[m
+[32m+[m[32m    if pid == 0:[m
+[32m+[m[32m        # Codice del figlio[m
+[32m+[m[32m        print(f"Sono il figlio! (pid: {os.getpid()})")[m
+[32m+[m[32m    elif pid > 0:[m
+[32m+[m[32m        # Codice del padre[m
+[32m+[m[32m        print(f"Sono il padre! (pid: {os.getpid()})")[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        # Errore nella creazione del processo figlio[m
+[32m+[m[32m        print("Creazione del processo figlio fallita!")[m
+[32m+[m
+[32m+[m[32m    print(f"Codice comune a padre e figlio! (pid: {os.getpid()})")[m
+[32m+[m
+[32m+[m[32mif __name__ == "__main__":[m
+[32m+[m[32m    main()[m
+[1mdiff --git a/pyforkB.py b/pyforkB.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5bb4e50[m
+[1m--- /dev/null[m
+[1m+++ b/pyforkB.py[m
+[36m@@ -0,0 +1,26 @@[m
+[32m+[m[32mimport os[m
+[32m+[m
+[32m+[m[32m#inizializzo le variabili[m
+[32m+[m[32mbase = 10[m
+[32m+[m[32maltezza = 5[m
+[32m+[m[32mrisultato = 0[m
+[32m+[m
+[32m+[m[32m#creazione del processo figlio[m
+[32m+[m[32mpid = os.fork()[m
+[32m+[m
+[32m+[m[32mif pid < 0:[m
+[32m+[m[32m    #rilevamento pid < 0 (impossibile)[m
+[32m+[m[32m    print("errore")[m
+[32m+[m
+[32m+[m[32melse if pid == 0:[m
+[32m+[m[32m    #calcolo del perimetro[m
+[32m+[m[32m    risultato = 2*(base+altezza)[m
+[32m+[m[32m    print("il figlio ha calcolato perimetro:", risultato)[m
+[32m+[m
+[32m+[m[32melse:[m
+[32m+[m[32m    #calcolo l'area[m
+[32m+[m[32m    risultato = base*altezza[m
+[32m+[m[32m    print("il padre ha calcolato area:", risultato)[m
+[32m+[m
+[32m+[m[32m    #attesa del termine dei calcoli[m
+[32m+[m[32m    os.wait()[m
+[1mdiff --git a/w4s_github_ed25519 b/w4s_github_ed25519[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c74e05c[m
+[1m--- /dev/null[m
+[1m+++ b/w4s_github_ed25519[m
+[36m@@ -0,0 +1,39 @@[m
+[32m+[m[32m-----BEGIN OPENSSH PRIVATE KEY-----[m
+[32m+[m[32mb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABDankjO5Q[m
+[32m+[m[32moLcNXH36O4JAKAAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQCY1RUcr9D4[m
+[32m+[m[32msHElxDb2MIft8PNJh3q2w23rRNJijW8TQrEFHmOZaUlRZktlaQqen2O+8Iv6R5r9JvtiPn[m
+[32m+[m[32mMqjgSQWl5IfkYdqwyu08MH+r4Z94nChUcBKiMk+sqbni8jEaZMgtSlRz9A/3TxVkzyIdaS[m
+[32m+[m[32mtHjVEWdbj76InXCEV59ipvUEjGj8IHybWAWq1Fy5R55e9poOZ7ZBqlgVmJ9oBg6iP4xCcw[m
+[32m+[m[32m1Upt7xT4KrtT8XiNJyUQJLjsUp8b6xDtngB7Spb8lhn4mWgPvvWt2nWy0c9UaiLGFrCBnY[m
+[32m+[m[32mlSQQr7NbNqY1/3IpaQp3i7UwSZHnBGOGAwJ37tucJ6E5dxVlBrj8kedOxniaQqXvnUEsF9[m
+[32m+[m[32mDZKhqxHWpa1HkYaRB7FhU0IR1B/kPeiD1Tayze7UHk7MEH+tSmVL/YtAilT5soRviGWyDh[m
+[32m+[m[32mZMFjcHRkRXQ5Fce+eJWuTxs0faFwh+JXDYmQ/VekdmmiW83IhcsqOEAUoQ4g/qX0+1PmnH[m
+[32m+[m[32moaZQRliIuKYLMAAAWgrKDP4m7cdJsld6pHzOhGOzivkWs7vsCVZR+OH4MLQcN4SwMdzVY9[m
+[32m+[m[32mT3OGwlnmyd5GyN+oiFA8IwLZJrH+qKVN9yG4pIfu/JDX9wCsl36EBLPGdchWz6IiJ4TVz5[m
+[32m+[m[32mYbOiEnkp7PEceOt9i3azSk/IByGAKbmzMiJOEwfsXAip06lr4As4quOAuzHyQAsSgJmR39[m
+[32m+[m[32mK4J1hYwgeX+2+tuRhdWlaCTIZks0mVU5AOhbh+2fBqpy23Sp11gyPnIULV9Nq9cRVpByUr[m
+[32m+[m[32mIZ60X9Pn69tpbLzSaIZ1Nxa90KyGa9pIsAejjgE1AcR9lY5Sq6aGoE1aArcuGpszmYXqcB[m
+[32m+[m[32msVT/yPqtSW7EMdOa/9s/s9CK3Z7fZX9pPyjUgtaXq4nCHjIa3byPsrgtCfd4+BnxRm9pZH[m
+[32m+[m[32m1G/eJYtF5Fyh3pYGW8BsU4cuT8HbkZDgGmbOV8Q0Sb5ci0lFJG0oi1NLXp2XQQo6kDjQlR[m
+[32m+[m[32mqkoZS6fUCitt+d/CMXLuWEQPjkvr9EjQNpM2iCCSCw6Z5zh+iRJfjC6+LmulJj79g5wylD[m
+[32m+[m[32mC1xysT10ios3yXSyOKz74IsvXUw6EcqZTOdMRvB52ueo3r0/bRTwxdHUPVxjg2OJ+QegG9[m
+[32m+[m[32mKda031unDFqgHHnPhe8VzN4DqFOrY5RL7ZooOZXU57Mf2DB0ntUi1TD8LbDIRevqbic+NP[m
+[32m+[m[32mrm2QE7S9Lo31F5NuuiDygEcNynF2x/1K3csiHfZH/SUCxs5DGLJb15Eti1N2r9hdfVpQFu[m
+[32m+[m[32mDXy8hBSwOTm1o/ashhnzynlPS4lNGYwP8ULb23oR5ZzEP/qyCcabVPwME4QyizZwQe4VfO[m
+[32m+[m[32m2Mfx3qUZiAp5fGAnPNtXC+lq48SSKOcuAaj1UK3LPDtmvxq8fShBfRuzLksqY0D/2fq0ce[m
+[32m+[m[32mnRC8y3NnNgyjHuY31hhQ1A5E4KerHFbJ9QJbstXg0Cd4q9nMdHii84EUvJ5T4dU4LxyEN0[m
+[32m+[m[32m1a3+6TUyF1Qc8UUyQHSGc94U3QFS3aYkp8Nr30Y25dYyOaVoV+qf/6jIHsmqWjIbvBvG/w[m
+[32m+[m[32mlYiIHe8xW9dPPQHH8vy1ESP/zLmbPUTOn8w5WFA6pqfIXIcdAorfkF+P+kXfJbT7y20WPQ[m
+[32m+[m[32mFVlMKPc+xmcvPFuuOHBHH3VAgpRpSG7FSXwVBQiiy/adzZR8s/Go36p4wgSoxkwmK3GGZk[m
+[32m+[m[32mgx0ICv1RUP3L0/QIX2xg/r+IkJh/pbbNL8iKTVnyVn2qfpQR0r4JVsDozjPoouYnoVcmeE[m
+[32m+[m[32mIsz5RsllI9se2bSOV8dtQDq8A65/QSV0vl0KCeR3ndKIGoEMjcE+BgnnarHFj+YJc6tW3o[m
+[32m+[m[32mrMViun4sXqCVxWOnXm+94qxg8R8EQeG6hjbrtOhQD6yS/ljPpNjZn7J28TC1U03ct8/xQl[m
+[32m+[m[32mVgLroIqFcFMe63ByBkpB4+N6AJAD16w+vgVIFjVstYTCMLKfTNWg0nT2slIFe5flw4Ua1i[m
+[32m+[m[32m8m9K0VR4Rlxd66vQiHHlSNkFKfVJqkoAapc4F3QRIjVSJe+B+r8mzk0B4uwf+S0izSLojZ[m
+[32m+[m[32mzymi1M//uK5DEFfUmD4JTFA/QutuRDo/MlBmiW6uhZOWUvcdwdqIKVkKnuT1gVoI00gk+O[m
+[32m+[m[32mOy8dd7B8tbEUHFzjTnuECdndWX95gvXIalIaASLXRXFF8aygACM46+2f4SRTso+zh5GD/n[m
+[32m+[m[32mZT7WRbvdSH0lfCPRpW9l7ugCUJtK273xvuNHGLx93vIzBh2FgMliab6xEIvCEoHI2cdSy3[m
+[32m+[m[32mrRvaiOZzEbYI8tddvvxf6B91UVjQn9RVaAfmBrKxGw5RRF94yNMbFCv40t1NoDYt2MMFjX[m
+[32m+[m[32mMf90NMsFxxCmVMgyJXCaqeW9bS6zDca05c9dC6Myei8WrBvpXz+2UDlClBMCQhtf4aNz7q[m
+[32m+[m[32mAUZLFS5CqnTwP0Nnii/xBEYybkN4n9+xweBS1fIrcKmXQDAy[m
+[32m+[m[32m-----END OPENSSH PRIVATE KEY-----[m
+[1mdiff --git a/w4s_github_ed25519.pub b/w4s_github_ed25519.pub[m
+[1mnew file mode 100644[m
+[1mindex 0000000..91004c1[m
+[1m--- /dev/null[m
+[1m+++ b/w4s_github_ed25519.pub[m
+[36m@@ -0,0 +1,39 @@[m
+[32m+[m[32m-----BEGIN OPENSSH PRIVATE KEY-----[m
+[32m+[m[32mb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABDkkuP3lH[m
+[32m+[m[32my8HRuBrR40OdOxAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQCxG8T414Up[m
+[32m+[m[32mYlU/CRl0CxU+hs+eAI+I9moMnqKZz//QEXE8GYSjBz+wsuqdIiwQsqJVoti28CHmi/o+F8[m
+[32m+[m[32mc3BcNgSBgh+xaJh7iLFrfVotwRqOvDw746ibSkcr2KIOLJK9x0K7C0UPrErrWWVmv70c8i[m
+[32m+[m[32mluAeGAymgGg4zpAn5UBEKQ30I4IHfcLY1OLWb7ma2B3DJGKxOLeJfl9+NH7cQBeUDT/H7k[m
+[32m+[m[32mxBdWP2yZ2XyoMPJBn7+jdHMuU51pHUXgww5KUjGTYt6yBlf4gQcXXlydPQ6PWkwnQ8u7of[m
+[32m+[m[32m19BCuOwhgNSD28vWySihJ9n4bB6anX7bSnTaboqoT510fmM7NjO35oapjcEPteU18MyMKk[m
+[32m+[m[32mQpd3d5ZogmEaagC9HORvZdm8UlkkcSbV93kBkAXW12/UWMVSsnuXISC8m+Fvrfy/UU4UYq[m
+[32m+[m[32mL7BzK/g9NQQ6y7xK2yuvO72ejFDm6lx4vxaY6ZEAL2iD47SfN8tq6PoDZXbG30hjAWGQ5t[m
+[32m+[m[32mqvY87o15t3VTUAAAWgb6sHm4HZnRlSXxKMX7WuCj4IAc5zIeb0KZgd+SlrrGrK6e5d0S34[m
+[32m+[m[32m9lwhB9mlpraM/6KiETvAGCq6vJOj8O+HbwX3vrsmmyod6vPxtD97n0HfC7MZtKB2npnO74[m
+[32m+[m[32mDjOfodPfuOrg5qzTNDHQVMvRaCyUEQARvBeb2IGLyFPEPh5u9ofCTLhFvbtK1yHdcM9EiL[m
+[32m+[m[32meOejbR6sa+Rl3vA+rIY4iWRAprrUFNmmJ8fx8K8SEiqN39wmYtxtmxKtjSLm5qR+bGpDsp[m
+[32m+[m[32mqrtXwMIsyqHG4ZV3UN9XxoduuRroAkZGQ6wJVkds4ay9hPo30sDnwlTVGyV3UbbOopXPDj[m
+[32m+[m[32maQDJ9cexY8w4VrvahmJaVUkQG9qVnwSm9uZ5itosOIvWceqPqMK9oLMOUvqH3t8Rr4fYw7[m
+[32m+[m[32mF1LXO1xKG9faLnbUhrarkdDmsCWi6m1XeUiLxY+PQRv8M6XLmDdssSlswzqFxs/tBa/+Ww[m
+[32m+[m[32mc1fD15+SV7gFXvRI7sH2pTfTRA1q4dlK3isJlS7uP2WX6tqhw/MSWHBmuW+DG2Y6Yf01dU[m
+[32m+[m[32mUa9A37b7pEt2fpA8BjZEgN3TlPpK2YLNDmqoJOJvu9qQ29va3DHcVrHHlqXMACOAdv4N6j[m
+[32m+[m[32m6SvVvDE24Xk8acFB7jX07hNOLfjofWQ1t9zW00xS4iPd55jYrTqi3ccdwvlR5T8y6yPlxy[m
+[32m+[m[32mGr8wI1WtKCr1j8OlHlL0/Ljqo6CQup3Z95x0Gl/1mpq1VsFzb5sqwehPAo3OLjuCEYv25b[m
+[32m+[m[32mJdyTq5mRIaQNhVlucJb4lAhctCoH8sqUq+9Vdxa2+SHfiNsVTRbBWFEkhFsGWkafqkt25m[m
+[32m+[m[32meO1U+A+Uey5ssahFC9M2eP3pC5m6MChdW22QTg/OHMGbU9yrGuBzM3yoF1DED0O/0Rggg9[m
+[32m+[m[32m9Dr3HeGn/Zb5eIwGKj/h/Lw7oB2NjyyXRJSB+kf+dM30zdlBIX7h7ztD7LpI8DgO95j428[m
+[32m+[m[32mN6SGzDWBzAvvqK5I/j2k4XLud4ttwoSFjlzE+NW8XJpOfPKFm9c19b4F9vsbLWNW4myDli[m
+[32m+[m[32mu+eqgAcldTO3hGbM/nYOH1T97qZ8y0+aGMC35CDQ2X6NCf/uQPlNcc8AruuqUXovRguJBV[m
+[32m+[m[32mHkrMYGS27LFtIt+bHSAJHtS2Wk6fNI6m8XpzAtWFsLlMoaBw0lKrwZo15P1J1+6gupIMph[m
+[32m+[m[32miuuhkDdPGVJYrrioOoDk2rRIk2Jnfmm4qhHKvnB/wM2YBntH5he9BncWGslI1ggZUr0t/O[m
+[32m+[m[32m0CVzaOMb3If5hqk2bqfEynphGMH2BgxX3hp0QLjHhwWNVJCTuu4o8dMV3w33V7cytgRjoi[m
+[32m+[m[32mqfiI2ON5Nz07pkndeaImc4P/lo8e0z+8eRsWtOCbyuEzhsXO4gCVNanPjHCOMoW+svnlP0[m
+[32m+[m[32m3XWGcCamj+WNAMQCbTpBz7RjMp/HOgXa4crzFrEb3V8g7FjLMy5QxkmbxPgvHQEA8Xhk3U[m
+[32m+[m[32mZSvfMEi9t88/VAYPVvYGVLqWnn4B/RxKGoE3c525xpozWtNyf4EoczUM+7GlmfUhvAlJzL[m
+[32m+[m[32m1I4MeC1N803TAHALaDO3G5FculwfmrwCWhGeDd+H24CzAC2mkVKFn+U1fsUJ3zon6dPHtM[m
+[32m+[m[32mdYTge9h2U/D3TtJ4GytyUHl+eAZ3LlauGZarosVmofa3e0GKOM6Aq+YQcp4zWSfgceWevo[m
+[32m+[m[32m5uuxmUJPf5E5GKg55ie00TWl7cyTv1v+XSzoezOebVJ/Z6oNXhtNUZkAYRduyoH1am+uOZ[m
+[32m+[m[32mdYx8E0tyEgJHzW9auvP36KIsVX/1lU2QuN//cEfQ9eTElEAYIkcIIh9SL/LI348kE2SltT[m
+[32m+[m[32miZ5iBqXNil30hQRPq6q/Swgbog8XXoBYv+qd/d5x/Edm70dyZGXSP6dR2YLpNVkq/M/ei4[m
+[32m+[m[32maD+5CPJt2VT5XyypRb5j8wX2X5vPCr+ensBuxTOe5iqhup9P[m
+[32m+[m[32m-----END OPENSSH PRIVATE KEY-----[m
+[1mdiff --git a/w4s_github_ed25519.pub.pub b/w4s_github_ed25519.pub.pub[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6f6a5c9[m
+[1m--- /dev/null[m
+[1m+++ b/w4s_github_ed25519.pub.pub[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32mssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCxG8T414UpYlU/CRl0CxU+hs+eAI+I9moMnqKZz//QEXE8GYSjBz+wsuqdIiwQsqJVoti28CHmi/o+F8c3BcNgSBgh+xaJh7iLFrfVotwRqOvDw746ibSkcr2KIOLJK9x0K7C0UPrErrWWVmv70c8iluAeGAymgGg4zpAn5UBEKQ30I4IHfcLY1OLWb7ma2B3DJGKxOLeJfl9+NH7cQBeUDT/H7kxBdWP2yZ2XyoMPJBn7+jdHMuU51pHUXgww5KUjGTYt6yBlf4gQcXXlydPQ6PWkwnQ8u7of19BCuOwhgNSD28vWySihJ9n4bB6anX7bSnTaboqoT510fmM7NjO35oapjcEPteU18MyMKkQpd3d5ZogmEaagC9HORvZdm8UlkkcSbV93kBkAXW12/UWMVSsnuXISC8m+Fvrfy/UU4UYqL7BzK/g9NQQ6y7xK2yuvO72ejFDm6lx4vxaY6ZEAL2iD47SfN8tq6PoDZXbG30hjAWGQ5tqvY87o15t3VTU= marzeddu.alessio@web4student[m
